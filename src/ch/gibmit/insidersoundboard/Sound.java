@@ -1,9 +1,16 @@
 package ch.gibmit.insidersoundboard;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Sound {
     private AudioInputStream audioStream;
@@ -61,6 +68,27 @@ public class Sound {
 
         sourceLine.drain();
         sourceLine.close();
+    }
+
+    public static ArrayList<Sound> fetchSonds(String urlPath) {
+        ArrayList<Sound> sounds = new ArrayList<>();
+        try {
+            String jsonString;
+            URL url = new URL(urlPath);
+            InputStream inputStream = url.openStream();
+            Scanner scanner = new Scanner(inputStream).useDelimiter("\\A");
+            jsonString = scanner.hasNext() ? scanner.next() : "";
+            JSONObject json = new JSONObject(jsonString);
+            JSONArray jsonArray = json.getJSONArray("sounds");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                URL soundUrl = new URL(jsonArray.getJSONObject(i).getString("filepath"));
+                Sound sound = new Sound(jsonArray.getJSONObject(i).getString("name"), soundUrl);
+                sounds.add(sound);
+            }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        return sounds;
     }
 
     //Getters and Setters
