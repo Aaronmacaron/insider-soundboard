@@ -1,0 +1,12 @@
+{
+  "songs": [
+    {
+      "name": "Testdatei",
+      "filepath": "http://download1321.mediafire.com/93e6a916a4jg/2u6kbd45x5mtzxj/Testdatei.wav"
+    },
+    {
+      "name": "Ein weiterer Test",
+      "filepath": "http://download1483.mediafire.com/acf2aunbsvvg/hpaxb88pw003xdm/Ein_weiterer_test.wav"
+    }
+  ]
+}
