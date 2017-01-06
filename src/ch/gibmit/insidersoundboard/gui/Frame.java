@@ -66,7 +66,7 @@ public class Frame extends JFrame {
         headerInfoBtn.setBounds(getContentPane().getWidth() - 50, 5, 40, 40);
         headerInfoBtn.setFont(new Font(headerInfoBtn.getFont().getName(), Font.PLAIN, 30));
         headerInfoBtn.addActionListener(e -> JOptionPane.showMessageDialog(this, infoMessage,
-                "Info:", JOptionPane.PLAIN_MESSAGE, null));
+                "Info:", JOptionPane.PLAIN_MESSAGE, new ImageIcon(getClass().getResource("/ch/gibmit/insidersoundboard/gui/icon.png"))));
         header.add(headerInfoBtn);
     }
 
