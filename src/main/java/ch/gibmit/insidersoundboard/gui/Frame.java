@@ -1,5 +1,7 @@
 package ch.gibmit.insidersoundboard.gui;
 
+import ch.gibmit.insidersoundboard.Sound;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
