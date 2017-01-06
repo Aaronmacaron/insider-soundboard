@@ -80,13 +80,17 @@ public class Frame extends JFrame {
         body.setBounds(0, 50, getContentPane().getWidth(), getContentPane().getHeight() - 100);
         body.setBorder(new EmptyBorder(10, 10, 10, 10));
         getContentPane().add(body);
-        body.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        body.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
         // Buttons
+        int btnWidth = getContentPane().getWidth() / 5 - 20;
+        int btnHeight = getContentPane().getHeight() / 5 - 20;
+        System.out.println(btnWidth + " " + btnHeight);
         for (Sound s : sounds) {
             JButton btn = new JButton(s.getName());
             btn.setFont(new Font(btn.getFont().getName(), Font.PLAIN, 16));
             btn.addActionListener(e -> s.play());
+            btn.setPreferredSize(new Dimension(btnWidth, btnHeight));
             body.add(btn);
         }
     }
