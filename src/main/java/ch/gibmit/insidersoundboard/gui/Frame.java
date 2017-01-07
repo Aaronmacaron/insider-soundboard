@@ -12,6 +12,7 @@ public class Frame extends JFrame {
     private final String infoMessage = "Program made by Aaron Ebnöther and Kay Mattern";
     private ArrayList<Sound> sounds;
 
+    // Constructor
     public Frame(ArrayList<Sound> sounds) {
         this.sounds = sounds;
 
@@ -68,7 +69,7 @@ public class Frame extends JFrame {
         headerInfoBtn.setBounds(getContentPane().getWidth() - 50, 5, 40, 40);
         headerInfoBtn.setFont(new Font(headerInfoBtn.getFont().getName(), Font.PLAIN, 30));
         headerInfoBtn.addActionListener(e -> JOptionPane.showMessageDialog(this, infoMessage,
-                "Info:", JOptionPane.PLAIN_MESSAGE, new ImageIcon(getClass().getResource("/ch/gibmit/insidersoundboard/gui/icon.png"))));
+                "Info:", JOptionPane.PLAIN_MESSAGE, null /**new ImageIcon(getClass().getResource("/ch/gibmit/insidersoundboard/gui/icon.png"))*/));
         header.add(headerInfoBtn);
     }
 
@@ -87,14 +88,14 @@ public class Frame extends JFrame {
         // Buttons
         int btnWidth = getContentPane().getWidth() / 5 - 20;
         int btnHeight = getContentPane().getHeight() / 5 - 20;
-        System.out.println(btnWidth + " " + btnHeight);
         for (Sound s : sounds) {
             JButton btn = new JButton(s.getName());
             btn.setFont(new Font(btn.getFont().getName(), Font.PLAIN, 16));
-            btn.addActionListener(e -> s.play());
             btn.setPreferredSize(new Dimension(btnWidth, btnHeight));
+            btn.addActionListener(e -> {
+                new Thread(() -> s.play()).start();
+            });
             body.add(btn);
         }
     }
-
 }
