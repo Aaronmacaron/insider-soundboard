@@ -70,7 +70,7 @@ public class Sound {
         sourceLine.close();
     }
 
-    public static ArrayList<Sound> fetchSonds(String urlPath) {
+    public static ArrayList<Sound> fetchSounds(String urlPath) {
         ArrayList<Sound> sounds = new ArrayList<>();
         try {
             String jsonString;
