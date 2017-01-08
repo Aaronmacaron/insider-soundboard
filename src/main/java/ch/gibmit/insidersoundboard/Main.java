@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        new Frame(Sound.fetchSonds("http://soundboard.byethost14.com/example.json"));
+        new Frame(Sound.fetchSounds("https://raw.githubusercontent.com/Aaronmacaron/insider-soundboard/Files/sounds.json"));
 
     }
 
