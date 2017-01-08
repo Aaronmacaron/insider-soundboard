@@ -92,9 +92,7 @@ public class Frame extends JFrame {
             JButton btn = new JButton(s.getName());
             btn.setFont(new Font(btn.getFont().getName(), Font.PLAIN, 16));
             btn.setPreferredSize(new Dimension(btnWidth, btnHeight));
-            btn.addActionListener(e -> {
-                new Thread(() -> s.play()).start();
-            });
+            btn.addActionListener(e -> s.play());
             body.add(btn);
         }
     }
