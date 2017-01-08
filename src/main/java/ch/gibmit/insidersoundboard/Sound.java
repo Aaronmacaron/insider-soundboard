@@ -31,43 +31,45 @@ public class Sound {
     }
 
     public void play() {
-        try {
-            if (soundFile == null) {
-                audioStream = AudioSystem.getAudioInputStream(soundURL);
-            } else if (soundURL == null) {
-                audioStream = AudioSystem.getAudioInputStream(soundFile);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        AudioFormat audioFormat = audioStream.getFormat();
-        DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
-
-        try {
-            sourceLine = (SourceDataLine) AudioSystem.getLine(info);
-            sourceLine.open(audioFormat);
-            sourceLine.start();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        }
-
-        int nBytesRead = 0;
-        int BUFFER_SIZE = 128000;
-        byte[] abData = new byte[BUFFER_SIZE];
-        while (nBytesRead != -1) {
+        new Thread(() -> {
             try {
-                nBytesRead = audioStream.read(abData, 0, abData.length);
-            } catch (IOException e) {
+                if (soundFile == null) {
+                    audioStream = AudioSystem.getAudioInputStream(soundURL);
+                } else if (soundURL == null) {
+                    audioStream = AudioSystem.getAudioInputStream(soundFile);
+                }
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            if (nBytesRead >= 0) {
-                int nBytesWritten = sourceLine.write(abData, 0, nBytesRead);
-            }
-        }
 
-        sourceLine.drain();
-        sourceLine.close();
+            AudioFormat audioFormat = audioStream.getFormat();
+            DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
+
+            try {
+                sourceLine = (SourceDataLine) AudioSystem.getLine(info);
+                sourceLine.open(audioFormat);
+                sourceLine.start();
+            } catch (LineUnavailableException e) {
+                e.printStackTrace();
+            }
+
+            int nBytesRead = 0;
+            int BUFFER_SIZE = 128000;
+            byte[] abData = new byte[BUFFER_SIZE];
+            while (nBytesRead != -1) {
+                try {
+                    nBytesRead = audioStream.read(abData, 0, abData.length);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (nBytesRead >= 0) {
+                    int nBytesWritten = sourceLine.write(abData, 0, nBytesRead);
+                }
+            }
+
+            sourceLine.drain();
+            sourceLine.close();
+        }).start();
     }
 
     public static ArrayList<Sound> fetchSounds(String urlPath) {
